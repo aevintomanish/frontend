@@ -39,7 +39,7 @@ const upload = () => {
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
   const currentUser = useAuth();
-  const usersCollectionRef = collection(db, "handright");
+  const usersCollectionRef = doc(db, "handright","ttffile");
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
@@ -66,7 +66,8 @@ const upload = () => {
                 setLoading(true);
                 setSuccess(false);
         if (snapshot.bytesTransferred==snapshot.totalBytes)
-        {setSuccess(true);
+        { createUser();
+          setSuccess(true);
         setLoading(false);}}
       },
       error => {

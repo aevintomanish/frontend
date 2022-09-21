@@ -27,6 +27,7 @@ const theme = createTheme({
       main: '#212121',
     },
   },
+  
 });
 function Copyright(props) {
   return (
@@ -40,9 +41,15 @@ function Copyright(props) {
     </Typography>
   );
 }
+const styles = {
+  paperContainer: {
+      backgroundImage: `url(${"static/src/img/main.jpg"})`
+  }
+};
 
 
 export default function signin() {
+  
   const[ loading, setLoading ] = useState(false);
   const[ Email, setEmail ] = useState("");
   const[ password, setPassword ] = useState("");
@@ -65,7 +72,7 @@ export default function signin() {
   }
   setLoading(false);
   };
-
+  
   return (
     <ThemeProvider theme={theme}>
       <div style={{ 
@@ -146,4 +153,5 @@ export default function signin() {
       </Container>
     </ThemeProvider>
   );
-}
+        }
+

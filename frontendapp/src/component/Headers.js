@@ -10,6 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import "../popup/popupscreen.css"
+import Upload from '../upload';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -58,10 +63,21 @@ export default function Header() {
 const nav = useNavigate();
 const currentUser = useAuth();
 
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const [modal, setModal] = useState(false);
 
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  if(modal) {
+    document.body.classList.add('active-modal')
+  } else {
+    document.body.classList.remove('active-modal')
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -110,11 +126,27 @@ const currentUser = useAuth();
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-              >      
-              <MenuItem onClick={handleLogout}>Logout&nbsp;<LogoutIcon/></MenuItem>
+              >     
+              <MenuItem onClick={handleClose}><div>Email is :{ currentUser &&currentUser.email? currentUser.email:"Not loaded yet"}</div></MenuItem> 
+              <MenuItem onClick={toggleModal}>Upload <UploadFileIcon/></MenuItem>
+              <MenuItem onClick={handleLogout}>Logout<LogoutIcon/></MenuItem>
+              
             </Menu>
-        </Toolbar>
+            </Toolbar>
       </AppBar>
+            {modal && (
+        <div className="modal">
+          <div onClick={toggleModal} className="overlay"></div>
+          <div className="modal-content">
+            <h2>Upload your ttf file</h2>
+            <Upload/>
+            <button className="close-modal"  onClick={toggleModal}>
+            <CloseIcon/>
+            </button>
+          </div>
+        </div>
+      )}
+       
 
       <Collapse
         in={checked}
