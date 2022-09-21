@@ -1,4 +1,4 @@
-import { unstable_unsupportedProp } from "@mui/utils";
+import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth,signInWithEmailAndPassword, createUserWithEmailAndPassword,onAuthStateChanged, signOut } from "firebase/auth";
 import { useState,useEffect } from "react";
@@ -13,7 +13,7 @@ const firebaseConfig = {
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
-
+  const db = getFirestore(app);
   export function signup(email,password){
     return createUserWithEmailAndPassword(auth,email,password);
   }
@@ -24,6 +24,7 @@ const firebaseConfig = {
     return signOut(auth);
   
   }
+  
 // custom react hook
 export function useAuth(){
  const [ currentUser, setCurrentUser ] = useState();

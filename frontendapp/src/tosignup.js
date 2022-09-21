@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRef,useState } from 'react';
 import { async } from '@firebase/util';
 import { Alert,AlertTitle } from '@mui/material';
-import Upload from './upload';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -75,6 +75,7 @@ export default function tosignup() {
   };
 
   return (
+    
     <ThemeProvider theme={theme}>
       <div style={{ 
       backgroundImage: `url("https://via.placeholder.com/500")` 
@@ -97,9 +98,6 @@ export default function tosignup() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Alert severity="info">
-          <AlertTitle>upload the file to complete the signup...!!!</AlertTitle>
-          </Alert>
           <Box component="form" disabled={loading} onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {error && <Alert severity="error">
           <AlertTitle>Can't signup</AlertTitle>
@@ -130,8 +128,7 @@ export default function tosignup() {
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
-           <Typography>Handscript (*must be a ttf file)</Typography>
-           <Upload/>
+           
            
            
             <Button
@@ -164,5 +161,6 @@ export default function tosignup() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    
   );
 }
