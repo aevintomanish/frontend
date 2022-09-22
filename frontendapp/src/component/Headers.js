@@ -14,6 +14,7 @@ import "../popup/popupscreen.css"
 import Upload from '../upload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import CloseIcon from '@mui/icons-material/Close';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import Button from '@mui/material/Button';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,6 +130,7 @@ const currentUser = useAuth();
               >     
               <MenuItem onClick={handleClose}><div>Email is :{ currentUser &&currentUser.email? currentUser.email:"Not loaded yet"}</div></MenuItem> 
               <MenuItem onClick={toggleModal}>Upload <UploadFileIcon/></MenuItem>
+              <MenuItem >Convertor<NoteAltIcon/></MenuItem>
               <MenuItem onClick={handleLogout}>Logout<LogoutIcon/></MenuItem>
               
             </Menu>

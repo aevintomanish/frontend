@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { render } from "react-dom";
@@ -39,7 +40,9 @@ const upload = () => {
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
   const currentUser = useAuth();
-  const usersCollectionRef = doc(db, "handright","ttffile");
+  const [newName, setNewName] = useState("");
+  const [newAge, setNewAge] = useState("");
+  const usersCollectionRef = collection(db, "handright").doc(db,"ttffile");
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
@@ -66,7 +69,7 @@ const upload = () => {
                 setLoading(true);
                 setSuccess(false);
         if (snapshot.bytesTransferred==snapshot.totalBytes)
-        { createUser();
+        { 
           setSuccess(true);
         setLoading(false);}}
       },
@@ -80,7 +83,11 @@ const upload = () => {
           .getDownloadURL()
           .then(url => {
             setUrl(url);
-            
+
+            {url && setNewAge(url)}
+            {currentUser && setNewName(currentUser.email)}
+            {url && createUser()};
+             {url && console.log("image: ", url);}
           });
       }
     );
@@ -90,7 +97,8 @@ const upload = () => {
     
   };
 
-  {url && console.log("image: ", url);}
+ 
+
 
   const buttonSx = {
     ...(success && {
@@ -102,7 +110,7 @@ const upload = () => {
   };
 
   const createUser = async () => {
-    await addDoc(usersCollectionRef, { link: currentUser.username, link:url  });
+    await addDoc(usersCollectionRef, { email: currentUser.email, link:url});
   };
 
 
